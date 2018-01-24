@@ -3,9 +3,9 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of SEQUENCES OF SUB-SEQUENCES.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
-
+         their colleagues and Jaxon Hoffman.
+"""  # Done 1. PUT YOUR NAME IN THE ABOVE LINE.
+import math as math
 
 def main():
     """ Calls the other functions to test them. """
@@ -17,7 +17,7 @@ def main():
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # Done 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # ------------------------------------------------------------------
@@ -45,6 +45,11 @@ def run_test_largest_number():
 
     # TO DO 2 (continued): Add your ADDITIONAL test(s) here:
 
+    # Test 4:
+    expected = 67
+    answer = largest_number(([1, 3, 5, 7], [2, 4, 6, 8], [23, 45, 67]))
+    print('Expected and actual are:', expected, answer)
+
 
 def largest_number(seq_seq):
     """
@@ -71,8 +76,38 @@ def largest_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+
+    statement = True
+
+    for k in range(len(seq_seq)):
+        if len(seq_seq[k]) == 0:
+            statement = False
+        else:
+            statement = True
+            break
+
+    if statement is False:
+        return None
+
+    temp_large = -1 * math.inf
+    temp = []
+
+    for k in range(len(seq_seq)):
+        for j in range(len(seq_seq[k])):
+            if seq_seq[k][j] > temp_large:
+                temp_large = seq_seq[k][j]
+        temp = temp + [temp_large]
+
+    large_in_temp = temp[0]
+
+    for k in range(len(temp)):
+        if temp[k] > large_in_temp:
+            large_in_temp = temp[k]
+
+    return large_in_temp
+
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
 
@@ -80,7 +115,7 @@ def largest_number(seq_seq):
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # Done 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -90,6 +125,17 @@ def run_test_largest_negative_number():
     print('-------------------------------------------------')
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
+
+    # Test 1:
+    expected = -1
+    answer = largest_negative_number(([-1, -3, -5, -7], [2, 4, 6, 8], [-23, 45, -67]))
+    print('Expected and actual are:', expected, answer)
+
+    # Test 2:
+    expected = -2.99
+    answer = largest_negative_number(
+        ([-26, -48, -3, -2.99], [2, 4, 6, 8], [-23, 45, -67]))
+    print('Expected and actual are:', expected, answer)
 
 
 def largest_negative_number(seq_seq):
@@ -114,8 +160,39 @@ def largest_negative_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+
+    statement = True
+
+    for k in range(len(seq_seq)):
+        if len(seq_seq[k]) == 0:
+            statement = False
+        else:
+            statement = True
+            break
+
+    if statement is False:
+        return None
+
+    temp_large = -1 * math.inf
+    temp = []
+
+    for k in range(len(seq_seq)):
+        for j in range(len(seq_seq[k])):
+            if seq_seq[k][j] < 0:
+                if seq_seq[k][j] > temp_large:
+                    temp_large = seq_seq[k][j]
+            temp = temp + [temp_large]
+
+    large_in_temp = temp[0]
+
+    for k in range(len(temp)):
+        if temp[k] > large_in_temp:
+            large_in_temp = temp[k]
+
+    return large_in_temp
+
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # Done 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
@@ -354,8 +431,22 @@ def first_is_elsewhere_too(seq_seq):
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences.
     """
+    print(seq_seq)
+
+    if len(seq_seq[0]) == 0:
+        return False
+
+    for k in range(len(seq_seq[0])):
+        test = seq_seq[0][k]
+        for i in range(1, len(seq_seq)):
+            for j in range(len(seq_seq[i])):
+                if seq_seq[i][j] == test:
+                    return True
+
+    return False
+
     # ------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # Done 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
